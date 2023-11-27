@@ -17,6 +17,7 @@ public class HealthService {
     }
 
     public Health create(Health health) {
+            System.out.println("insideservice"+health);
         return healthRepository.save(health);
     }
 

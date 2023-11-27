@@ -7,8 +7,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Health {
-	
-	
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

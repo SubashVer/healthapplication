@@ -3,6 +3,7 @@ package com.example.health;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class HealthController {
         Health createdHealth = healthService.create(health);
 
         // Communicate with the Risk microservice to calculate risk
-        Risk risk = restTemplate.postForObject("http://risk-service/risk/calculate", createdHealth, Risk.class);
+        Risk risk = restTemplate.getForObject("http://localhost:8080/risk/", Risk.class,createdHealth.getId());
 
         // Handle the returned risk as needed
         System.out.println("Calculated Risk Level: " + risk.getRiskLevel());

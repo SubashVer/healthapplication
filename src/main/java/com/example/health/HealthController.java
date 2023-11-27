@@ -40,14 +40,17 @@ public class HealthController {
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Health createHealth(@RequestBody Health health) {
-       System.out.println("wrong"+health);
-            Health createdHealth = healthService.create(health);
-        System.out.println("createdHealth"+createdHealth);
+        System.out.println("Received Health Record: " + health);
+
+        // Save the health record
+        Health createdHealth = healthService.create(health);
+        System.out.println("Created Health Record: " + createdHealth);
+
         // Communicate with the Risk microservice to calculate risk
-        String risk = restTemplate.getForObject("http://localhost:8080/risk/", String.class);
+        String risk = restTemplate.getForObject("http://localhost:8080/risk", String.class);
 
         // Handle the returned risk as needed
-       // System.out.println("Calculated Risk Level: " + risk.getRiskLevel());
+        System.out.println("Calculated Risk: " + risk);
 
         return createdHealth;
     }

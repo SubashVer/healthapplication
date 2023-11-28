@@ -46,11 +46,16 @@ public class HealthController {
         Health createdHealth = healthService.create(health);
         System.out.println("Created Health Record: " + createdHealth);
 
-        // Communicate with the Risk microservice to calculate risk
-        String risk = restTemplate.getForObject("http://localhost:8080/risk", String.class);
+        try {
+            // Communicate with the Risk microservice to calculate risk
+            String risk = restTemplate.getForObject("http://3.83.240.5:8080/risk", String.class);
 
-        // Handle the returned risk as needed
-        System.out.println("Calculated Risk: " + risk);
+            // Handle the returned risk as needed
+            System.out.println("Calculated Risk: " + risk);
+        } catch (Exception e) {
+            System.err.println("Error communicating with Risk microservice: " + e.getMessage());
+            // Handle the error or log it as needed
+        }
 
         return createdHealth;
     }
